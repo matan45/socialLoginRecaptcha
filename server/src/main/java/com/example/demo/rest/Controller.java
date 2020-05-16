@@ -1,8 +1,8 @@
 package com.example.demo.rest;
 
 
-import com.example.demo.ResponseRecap;
-import com.example.demo.UserData;
+import com.example.demo.model.ResponseRecap;
+import com.example.demo.model.UserData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -21,7 +21,7 @@ public class Controller {
 
     WebClient builder = WebClient.create();
     private final String key = "6Lc7l_cUAAAAAN44oewe0vnrCOgjQc_GrGXu17AO";
-
+    
     @PostMapping("user")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void getUserData(@RequestBody UserData data) {

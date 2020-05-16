@@ -9,7 +9,8 @@ import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-logi
 import { HttpClientModule } from '@angular/common/http';
 
 import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module, RECAPTCHA_SETTINGS } from 'ng-recaptcha';
-import { RecaptchaComponent } from './recaptcha/recaptcha.component'
+import { RecaptchaComponent } from './recaptcha/recaptcha.component';
+import { CheatComponent } from './cheat/cheat.component'
 
 let config = new AuthServiceConfig([
   {
@@ -29,7 +30,8 @@ export function provideConfig() {
   declarations: [
     AppComponent,
     LoginComponent,
-    RecaptchaComponent
+    RecaptchaComponent,
+    CheatComponent
   ],
   imports: [
     BrowserModule,
