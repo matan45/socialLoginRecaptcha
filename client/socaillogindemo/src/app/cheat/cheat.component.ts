@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import * as SockJS from 'sockjs-client';
-import { over } from '@stomp/stompjs';
-import $ from 'jquery';
+import { RxStompService } from '@stomp/ng2-stompjs';
+import { Message } from '@stomp/stompjs';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -10,34 +10,25 @@ import $ from 'jquery';
   styleUrls: ['./cheat.component.css']
 })
 export class CheatComponent implements OnInit {
-  private serverUrl = 'http://localhost:8080/socket'
-  public title = 'WebSockets chat';
-  private stompClient;
+  public receivedMessages: string[] = [];
+  private topicSubscription: Subscription;
 
-  constructor(){
-    this.initializeWebSocketConnection();
-  }
+  constructor(private rxStompService: RxStompService) { }
 
   ngOnInit(): void {
-   
-  }
-
-  initializeWebSocketConnection(){
-    this.stompClient = over(new SockJS(this.serverUrl));
-    let that = this;
-    this.stompClient.connect({}, function() {
-      that.stompClient.subscribe("/chat", (message) => {
-        if(message.body) {
-          $(".chat").append("<div class='message'>"+message.body+"</div>")
-          console.log(message.body);
-        }
-      });
+    this.topicSubscription = this.rxStompService.watch('/chat').subscribe((message: Message) => {
+      console.log(message.body)
+      this.receivedMessages.push(message.body);
     });
   }
 
-  sendMessage(message){
-    this.stompClient.send("/app/send/message" , {}, message);
-    $('#input').val('');
+  onSendMessage() {
+    const message = `Message generated at ${new Date}`;
+    this.rxStompService.publish({ destination: '/app/send/message', body: message });
+  }
+
+  ngOnDestroy() {
+    this.topicSubscription.unsubscribe();
   }
 
 }

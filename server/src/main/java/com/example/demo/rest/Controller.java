@@ -20,7 +20,7 @@ import java.net.URI;
 public class Controller {
 
     WebClient builder = WebClient.create();
-    private final String key = "6Lc7l_cUAAAAAN44oewe0vnrCOgjQc_GrGXu17AO";
+    private final String key = System.getenv("RECAPTCHA");;
     
     @PostMapping("user")
     @ResponseStatus(HttpStatus.NO_CONTENT)

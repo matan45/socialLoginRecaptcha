@@ -12,6 +12,9 @@ import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module, RECAPTCHA_SETTINGS } from 'ng
 import { RecaptchaComponent } from './recaptcha/recaptcha.component';
 import { CheatComponent } from './cheat/cheat.component'
 
+import { InjectableRxStompConfig, RxStompService, rxStompServiceFactory } from '@stomp/ng2-stompjs';
+import { myRxStompConfig } from './cheat/my-rx-stomp.config';
+
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -46,6 +49,15 @@ export function provideConfig() {
       useFactory: provideConfig
     },
     { provide: RECAPTCHA_V3_SITE_KEY, useValue: '6Lc7l_cUAAAAAM5ye-opJrbOIB0PhvDO7zGaCPKx' },
+    {
+      provide: InjectableRxStompConfig,
+      useValue: myRxStompConfig
+    },
+    {
+      provide: RxStompService,
+      useFactory: rxStompServiceFactory,
+      deps: [InjectableRxStompConfig]
+    }
   ],
   bootstrap: [AppComponent]
 })
