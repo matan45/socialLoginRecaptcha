@@ -33,4 +33,6 @@ export class LoginComponent implements OnInit {
       this.client.Savesresponse(this.data);
     });
   }
+
+  
 }

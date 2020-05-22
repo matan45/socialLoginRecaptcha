@@ -19,12 +19,6 @@ public class ChatController {
         this.template = template;
     }
 
-    /*@MessageMapping("/send/message")
-    public void onReceivedMesage(final Message message){
-        final String time = new SimpleDateFormat("HH:mm").format(new Date());
-        template.convertAndSend("/chat",  new OutputMessage(message.getFrom(), message.getText(), time));
-    }*/
-
     @MessageMapping("/send/message")
     public void onReceivedMesage(String message){
         log.info(message);

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserData } from './login/UserPayload';
 import { Observable } from 'rxjs';
 import { ResponseRecap } from './recaptcha/RecaptchaPayload';
@@ -13,10 +13,12 @@ export class SocialloginServiceService {
   constructor(private http: HttpClient) { }
 
   Savesresponse(user: UserData): void {
-    this.http.post(this.url+'user', user);
+    this.http.post(this.url+'user', user).subscribe(()=>{});
   }
 
   Savesresponsetoken(token: string): Observable<ResponseRecap> {
     return this.http.post<ResponseRecap>(this.url+'recaptcha', token);
   }
+
+  
 }
